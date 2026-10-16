@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Event Sync — Unified Meetings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip" href="#meetings">Skip to meetings</a>
+  <header class="topbar">
+    <div>
+      <h1>Event Sync</h1>
+      <p class="muted" id="sync-info" aria-live="polite">Loading…</p>
+    </div>
+    <button type="button" id="resync">Re-sync sources</button>
+  </header>
+
+  <section aria-label="Summary" class="stats" id="stats"></section>
+
+  <section aria-label="Filters" class="filters">
+    <label>Source
+      <select id="f-source">
+        <option value="">All meetings</option>
+        <option value="both">In both sources</option>
+        <option value="crm">CRM only</option>
+        <option value="calendar">Calendar only</option>
+      </select>
+    </label>
+    <label><input type="checkbox" id="f-conflicts"> Has conflicts</label>
+    <label><input type="checkbox" id="f-review"> Needs review</label>
+    <label class="grow">Search
+      <input type="search" id="f-q" placeholder="title, client, owner, location, record id">
+    </label>
+  </section>
+
+  <div class="legend" aria-label="Legend">
+    <span class="chip crm">CRM</span> CRM record
+    <span class="chip calendar">CAL</span> Calendar record
+    <span class="sev high">high</span><span class="sev medium">medium</span><span class="sev low">low</span> conflict severity
+  </div>
+
+  <main class="layout">
+    <section id="meetings" aria-label="Meetings" class="list">
+      <table>
+        <caption class="sr-only">Reconciled meetings. Choose a title to see field-level provenance and conflicts.</caption>
+        <thead>
+          <tr>
+            <th scope="col">When (ET)</th>
+            <th scope="col">Meeting</th>
+            <th scope="col">Client</th>
+            <th scope="col">Location</th>
+            <th scope="col">Status</th>
+            <th scope="col">Sources</th>
+            <th scope="col">Conflicts</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <p id="empty" class="muted" hidden>No meetings match these filters.</p>
+    </section>
+
+    <aside id="detail" class="detail" aria-label="Meeting details" tabindex="-1">
+      <p class="muted">Select a meeting to see where each value came from.</p>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
